@@ -1,0 +1,1 @@
+# Adicionar as estrutura de pastas atual, caso haja modificacoes ir adicionando conforme elas sao feitas.
