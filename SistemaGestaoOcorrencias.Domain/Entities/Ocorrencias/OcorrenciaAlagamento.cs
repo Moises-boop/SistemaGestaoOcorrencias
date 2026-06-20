@@ -1,0 +1,1 @@
+namespace SistemaGestaoOcorrencias.Domain.Entities.Ocorrencias;
