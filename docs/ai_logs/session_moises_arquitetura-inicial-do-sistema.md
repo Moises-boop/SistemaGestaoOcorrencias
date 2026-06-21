@@ -29,7 +29,7 @@ A organização da solução e a divisão em subpastas foram estruturadas para a
 
 O documento estabelece que a solução em C# deve ser organizada com projetos separados por responsabilidade. A arquitetura foi dividida exatamente nos quatro pilares obrigatórios exigidos pelo problema:  
 
-    1.Domain (Domínio): Projeto dedicado ao domínio do problema. Ele blinda as regras de negócio puras e impede movimentações ou encerramentos inválidos que quebrem a consistência do sistema.  
+1.Domain (Domínio): Projeto dedicado ao domínio do problema. Ele blinda as regras de negócio puras e impede movimentações ou encerramentos inválidos que quebrem a consistência do sistema.  
 
 2.Application (Aplicação): Projeto voltado para as regras de aplicação ou serviços, responsável por coordenar o fluxo de atendimento sem reter regras de negócio centrais.  
 
