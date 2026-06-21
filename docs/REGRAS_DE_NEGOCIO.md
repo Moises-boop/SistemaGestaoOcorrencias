@@ -1,43 +1,43 @@
-docs/regras-negocio
 # Regras de Negócio do Sistema de Gerenciamento de Ocorrências
 
-| RN01            | Não é permitido registrar uma ocorrência sem descrição, bairro ou origem.                                |
+
+| RN01            | Registrar uma ocorrência sem descrição, bairro ou origem é inválido.                                     |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN02            | Não é permitido criar uma ocorrência com prioridade inexistente.                                         |
+| RN02            | A criação de uma ocorrência deve ter prioridade existente.                                               |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN03            | Não é permitido aceitar uma ocorrência sem setor responsável.                                            |
+| RN03            | Uma ocorrência aceita precisa ter algum setor responsável.                                               |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN04            | Não é permitido recusar uma ocorrência sem justificativa.                                                |
+| RN04            | A recusa de uma ocorrência deve ter justificativa.                                                       |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN05            | Não é permitido marcar uma ocorrência como duplicada sem protocolo relacionado.                          |
+| RN05            | É inválido marcar uma ocorrência como duplicada sem protocolo relacionado.                               |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN06            | Não é permitido executar uma ocorrência que ainda exige vistoria pendente.                               |
+| RN06            | A execução de uma ocorrência pode ser feita se não houver vistoria pendente.                             |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN07            | Não é permitido encerrar uma ocorrência sem registro de atendimento, vistoria ou justificativa adequada. |
+| RN07            | Uma ocorrência não pode ser encerrada sem registro de atendimento, vistoria ou justificativa adequada.   |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN08            | Não é permitido alterar uma ocorrência encerrada.                                                        |
+| RN08            | Ocorrências encerradas não podem ser alteradas.                                                          |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN09            | Não é permitido registrar uma movimentação com data anterior à abertura da ocorrência.                   |
+| RN09            | Uma movimentação não deve ser registrada com data anterior à abertura da ocorrência.                     |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN10            | Não é permitido registrar uma movimentação incompatível com a situação atual da ocorrência.              |
+| RN10            | É inválido registrar uma movimentação incompatível com a situação atual da ocorrência.                   |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
@@ -60,4 +60,3 @@ docs/regras-negocio
 | RN15            | Somente ocorrências aceitas ou classificadas pela triagem são encaminhadas para execução ou vistoria     |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
-=======
