@@ -2,7 +2,7 @@
 
 
 
-| RN01            | Não é permitido registrar uma ocorrência sem descrição, bairro ou origem.            |
+| RN01            | Não é permitido registrar uma ocorrência sem descrição, bairro ou origem.                                |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
@@ -42,6 +42,22 @@
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
 
-| RN11            | Não é permitido registrar uma movimentação incompatível com a situação atual da ocorrência.              |
+| RN11            | Toda ocorrência deve passar por uma triagem inicial antes de encaminhar, executar ou encerrar.           |
+| :-------------- | :------------------------------------------------------------------------------------------------------- |
+| **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
+
+| RN12            | A triagem define ocorrência como aceita, recusada, encaminhada para vistoria ou execução, ou duplicada   |
+| :-------------- | :------------------------------------------------------------------------------------------------------- |
+| **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
+
+| RN13            | O protocolo referenciado numa duplicação tem que existir e não pode ser o próprio protocolo              |
+| :-------------- | :------------------------------------------------------------------------------------------------------- |
+| **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
+
+| RN14            | Toda alteração relevante de estado ou ação deve gerar uma entrada no histórico de movimentações          |
+| :-------------- | :------------------------------------------------------------------------------------------------------- |
+| **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
+
+| RN15            | Somente ocorrências aceitas ou classificadas pela triagem são encaminhadas para execução ou vistoria     |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
