@@ -28,21 +28,18 @@ public abstract class Ocorrencia
         string descricao, 
         string protocolo, 
         Bairro bairro, 
+        Situacao situacao,
         DateTime dataAbertura, 
         Setor setorResponsavel, 
-        string? protocoloRelacionado,
-        ICalcularPrioridade estrategiaPrioridade,
-        IEstrategiaTriagem<Ocorrencia> estrategiaTriagem)
+        string? protocoloRelacionado)
     {
         Descricao = Validacao.ValidarTexto(descricao, "Descrição é obrigatória. ");
         Protocolo = Validacao.ValidarTexto(protocolo, "Protocolo é obrigatório. ");
         Bairro = ValidarObjeto.ValidarObjeto(bairro, "Bairro é obrigatório. ");
+        Situacao = ValidarObjeto.ValidarObjeto(situacao, "Situação é obrigatória.");
         DataAbertura = ValidarData.ValidarData(dataAbertura, DateTime.Now, DateTime.Now, "Data de abertura é inválida.");
         SetorResponsavel = ValidarObjeto.ValidarObjeto(setorResponsavel, "Setor responsável é obrigatório. ");
         ProtocoloRelacionado = protocoloRelacionado;
-
-        CalcularPrioridade(estrategiaPrioridade);
-        Triar(estrategiaTriagem);
     }
 
     public void AdicionarMovimentacao(Movimentacao movimentacao)
@@ -78,18 +75,7 @@ public abstract class Ocorrencia
         return true;
     }
 
-    public void Triar(IEstrategiaTriagem<Ocorrencia> estrategiaTriagem)
-    {
-        this.Situacao = estrategiaTriagem.Triar(this);
-    }
-
-    public void CalcularPrioridade(ICalcularPrioridade calcularPrioridade)
-    {
-        this.NivelPrioridade = calcularPrioridade.Calcular(this);
-    }
-
-    public string GerarResumo(IGeradorResumos<Ocorrencia> geradorResumos)
-    {
-        return geradorResumos.Gerar(this);
-    }
+    public abstract void Triar();
+    public abstract void CalcularPrioridade();
+    public abstract string GerarResumo();
 }
