@@ -31,9 +31,4 @@ public class Impedimento
             
         return true;
     }
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 }
