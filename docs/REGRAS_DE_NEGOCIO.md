@@ -1,6 +1,5 @@
+docs/regras-negocio
 # Regras de Negócio do Sistema de Gerenciamento de Ocorrências
-
-
 
 | RN01            | Não é permitido registrar uma ocorrência sem descrição, bairro ou origem.                                |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
@@ -61,3 +60,4 @@
 | RN15            | Somente ocorrências aceitas ou classificadas pela triagem são encaminhadas para execução ou vistoria     |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | **Versão:** 1.0 | **Prioridade:** Essencial                                                                                |
+=======
