@@ -1,15 +1,17 @@
+using SistemaGestaoOcorrencias.Domain.Enums;
+
 namespace SistemaGestaoOcorrencias.Domain.Entities;
 
 public class Impedimento
 {
-    public string Tipo {get;}
+    public TipoImpedimento Tipo {get;}
     public DateTime DataRegistro {get;}
     public bool Resolvido {get; private set;}
     public DateTime? DataResolucao {get; private set;}
 
-    public Impedimento (string tipo)
+    public Impedimento (TipoImpedimento tipo)
     {
-        Tipo = string.IsNullOrEmpty(tipo) ? throw new ArgumentException ("O tipo do impedimento não pode ser nulo em branco") : tipo;
+        Tipo = tipo;
         DataRegistro = DateTime.Now();
         Resolvido = false;
     }
@@ -29,6 +31,9 @@ public class Impedimento
             
         return true;
     }
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 }
