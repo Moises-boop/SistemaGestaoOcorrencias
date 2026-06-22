@@ -80,6 +80,7 @@ public abstract class Ocorrencia
         if (vistoria.Aprovada)
             Situacao = Situacao.EncaminhadaParaExecucao;
         
+
         Vistoria = vistoria;
     }
 
