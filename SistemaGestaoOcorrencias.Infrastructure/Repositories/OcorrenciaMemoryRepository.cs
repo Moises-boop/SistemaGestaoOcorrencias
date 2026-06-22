@@ -1,5 +1,6 @@
+using SistemaGestaoOcorrencias.Domain.Entities;
+using SistemaGestaoOcorrencias.Domain.MemoryInterfaces;
 using SistemaGestaoOcorrencias.Infrastructure.Persistence;
-using SistemaGestaoOcorrencias.Domain.Repositories;
 
 namespace SistemaGestaoOcorrencias.Infrastructure.Repositories
 {

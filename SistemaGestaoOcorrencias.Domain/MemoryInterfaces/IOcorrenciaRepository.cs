@@ -1,6 +1,6 @@
 using SistemaGestaoOcorrencias.Domain.Entities;
 
-namespace SistemaGestaoOcorrencias.Domain.Repositories
+namespace SistemaGestaoOcorrencias.Domain.MemoryInterfaces
 {
     public interface IOcorrenciaRepository
     {
