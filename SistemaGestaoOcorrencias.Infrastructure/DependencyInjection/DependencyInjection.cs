@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using SistemaGestaoOcorrencias.Domain.MemoryInterfaces;
 using SistemaGestaoOcorrencias.Infrastructure.Persistence;
 using SistemaGestaoOcorrencias.Infrastructure.Repositories;
 
