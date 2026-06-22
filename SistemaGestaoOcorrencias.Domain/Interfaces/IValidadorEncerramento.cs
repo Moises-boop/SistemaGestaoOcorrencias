@@ -1,9 +1,8 @@
 using SistemaGestaoOcorrencias.Domain.Entities;
 
-namespace SistemaGestaoOcorrencias.Domain.Interfaces
+namespace SistemaGestaoOcorrencias.Domain.Interfaces;
+
+public interface IValidadorEncerramento
 {
-    public interface IValidadorEncerramento
-    {
-        bool Validar(Ocorrencia ocorrencia);
-    }
+    bool Validar(Ocorrencia ocorrencia);
 }

@@ -25,6 +25,7 @@ public class OcorrenciaViaDanificada : Ocorrencia
             estrategiaPrioridade,
             estrategiaTriagem)
     {
-        ExigeVistoria = true;
     }
+
+    protected override bool DeterminarExigeVistoria() => true;
 }

@@ -28,7 +28,7 @@ public class OcorrenciaArvore : Ocorrencia
             estrategiaTriagem)
     {
         RiscoDeQuedaImediato = riscoDeQuedaImediato;
-
-        ExigeVistoria = true;
     }
+
+    protected override bool DeterminarExigeVistoria() => true;
 }

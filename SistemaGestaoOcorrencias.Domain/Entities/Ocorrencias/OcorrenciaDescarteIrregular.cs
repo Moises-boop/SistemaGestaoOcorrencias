@@ -25,6 +25,7 @@ public class OcorrenciaDescarteIrregular : Ocorrencia
             estrategiaPrioridade,
             estrategiaTriagem)
     {
-        ExigeVistoria = true;
     }
+
+    protected override bool DeterminarExigeVistoria() => true;
 }

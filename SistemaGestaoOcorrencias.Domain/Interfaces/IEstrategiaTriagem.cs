@@ -1,6 +1,9 @@
+using SistemaGestaoOcorrencias.Domain.Entities;
+using SistemaGestaoOcorrencias.Domain.Utils.Enums;
+
 namespace SistemaGestaoOcorrencias.Domain.Interfaces;
 
-public interface IEstrategiaTriagem<T>
+public interface IEstrategiaTriagem
 {
-    void Triar(SistemaGestaoOcorrencias.Domain.Entities.Ocorrencia item);
+    ResultadoTriagem Executar(Ocorrencia ocorrencia);
 }

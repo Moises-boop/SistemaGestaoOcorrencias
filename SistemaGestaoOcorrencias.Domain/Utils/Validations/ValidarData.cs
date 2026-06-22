@@ -2,10 +2,10 @@ namespace SistemaGestaoOcorrencias.Domain.Utils.Validations;
 
 public class ValidarData
 {
-    public static DateTime ValidarData(DateTime data,
-                                       DateTime limiteInicial, 
-                                       DateTime limiteFinal, 
-                                       string mensagem)
+    public static DateTime Validar(DateTime data,
+                                   DateTime limiteInicial, 
+                                   DateTime limiteFinal, 
+                                   string mensagem)
     {
         if (data == default)
             throw new ArgumentException(mensagem);

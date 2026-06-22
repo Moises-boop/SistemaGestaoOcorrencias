@@ -1,4 +1,4 @@
-using SistemaGestaoOcorrencias.Domain.Enums;
+using SistemaGestaoOcorrencias.Domain.Utils.Enums;
 
 namespace SistemaGestaoOcorrencias.Domain.Entities;
 
@@ -12,7 +12,7 @@ public class Impedimento
     public Impedimento (TipoImpedimento tipo)
     {
         Tipo = tipo;
-        DataRegistro = DateTime.Now();
+        DataRegistro = DateTime.Now;
         Resolvido = false;
     }
 
@@ -21,7 +21,7 @@ public class Impedimento
         if (Resolvido == true)
             throw new ArgumentException ("O impedimento já foi resolvido");
         Resolvido = true;
-        DataResolucao = DateTime.Now();
+        DataResolucao = DateTime.Now;
     }
 
     public bool ImpedimentoAtivo()

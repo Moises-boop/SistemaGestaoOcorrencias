@@ -1,7 +1,8 @@
 using SistemaGestaoOcorrencias.Domain.Entities;
+using SistemaGestaoOcorrencias.Domain.Interfaces;
 using SistemaGestaoOcorrencias.Domain.Utils.Enums;
 
-namespace SistemaGestaoOcorrencias.Domain.Services.Validators;
+namespace SistemaGestaoOcorrencias.Application.EstrategiasEncerramento;
 
 public class ValidadorEncerramentoPadrao : IValidadorEncerramento
 {
