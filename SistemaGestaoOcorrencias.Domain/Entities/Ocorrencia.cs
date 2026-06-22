@@ -77,8 +77,11 @@ public abstract class Ocorrencia
         if (Situacao != Situacao.EncaminhadaParaVistoria)
             throw new InvalidOperationException("A ocorrência precisa estar encaminhada para vistoria.");
 
+        if (vistoria.Aprovada)
+            Situacao = Situacao.EncaminhadaParaExecucao;
+        
+
         Vistoria = vistoria;
-        Situacao = Situacao.EncaminhadaParaExecucao;
     }
 
     public void Executar()

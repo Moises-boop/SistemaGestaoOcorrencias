@@ -6,7 +6,8 @@ public class Vistoria
 {
     public DateTime Data {get; }
     public string Responsavel {get; }
-    public bool Concluida {get; }
+    public string Relatorio {get; }
+    public bool Aprovada {get; }
 
     public Vistoria(DateTime data, string responsavel)
     {
