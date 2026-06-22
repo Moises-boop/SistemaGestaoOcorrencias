@@ -1,8 +1,13 @@
 ﻿using SistemaGestaoOcorrencias.Application.EstrategiasTriagem;
 using SistemaGestaoOcorrencias.Domain.Entities;
 using SistemaGestaoOcorrencias.Domain.Entities.Ocorrencias;
-using SistemaGestaoOcorrencias.Domain.Entities.Setor;
 using SistemaGestaoOcorrencias.Domain.Utils.Enums;
+using SistemaGestaoOcorrencias.Domain.Utils.Validations;
+using SistemaGestaoOcorrencias.Domain.Interfaces;
+using SistemaGestaoOcorrencias.Application.EstrategiasEncerramento;
+using SistemaGestaoOcorrencias.Application.EstrategiasGeracaoResumos;
+using SistemaGestaoOcorrencias.Application.EstrategiasPrioridade;
+using SistemaGestaoOcorrencias.Domain.ValueObject;
 
 Console.WriteLine("=== SISTEMA DE GESTÃO DE OCORRÊNCIAS ===\n");
 
@@ -18,10 +23,22 @@ var ocorrencia1 = new OcorrenciaViaDanificada(
     DateTime.Now,
     setor,
     null,
+    new PrioridadePadrao(),
     new EstrategiaTriagemPadrao()
 );
 
 Console.WriteLine($"Criada: {ocorrencia1.Protocolo} | Situação: {ocorrencia1.Situacao}");
+
+ocorrencia1.Triar(new EstrategiaTriagemPadrao());
+Console.WriteLine($"Após triagem: {ocorrencia1.Situacao}");
+
+if (ocorrencia1.Situacao == Situacao.EncaminhadaParaVistoria)
+{
+    ocorrencia1.RegistrarVistoria(
+        new Vistoria(DateTime.Now, "Analista de Campo", "Vistoria concluída com sucesso", true)
+    );
+    Console.WriteLine($"Após vistoria: {ocorrencia1.Situacao}");
+}
 
 ocorrencia1.Executar();
 Console.WriteLine($"Após execução: {ocorrencia1.Situacao}");
@@ -45,13 +62,17 @@ var ocorrencia2 = new OcorrenciaAlagamento(
     DateTime.Now,
     setor,
     null,
+    new PrioridadePadrao(),
     new EstrategiaTriagemPadrao()
 );
 
 Console.WriteLine($"Criada: {ocorrencia2.Protocolo} | Situação: {ocorrencia2.Situacao}");
 
+ocorrencia2.Triar(new EstrategiaTriagemPadrao());
+Console.WriteLine($"Após triagem: {ocorrencia2.Situacao}");
+
 ocorrencia2.RegistrarVistoria(
-    new Vistoria(DateTime.Now, "Engenheiro Civil")
+    new Vistoria(DateTime.Now, "João Silva", "Vistoria realizada, alagamento confirmado", true)
 );
 
 Console.WriteLine($"Vistoria registrada | Situação: {ocorrencia2.Situacao}");
@@ -63,15 +84,17 @@ Console.WriteLine($"Após execução: {ocorrencia2.Situacao}");
 Console.WriteLine("\n--- CENÁRIO 3: RECUSADA ---");
 
 var ocorrencia3 = new OcorrenciaPracaPublica(
-    "",
+    "Solicita inválida",
     "PR-003",
     new Bairro("Centro"),
     DateTime.Now,
     setor,
     null,
-    new EstrategiaTriagemRigida()
+    new PrioridadePadrao(),
+    new EstrategiaTriagemRigorosa()
 );
 
+ocorrencia3.Triar(new EstrategiaTriagemRigorosa());
 Console.WriteLine($"Situação final: {ocorrencia3.Situacao}");
 
 // ======================================================================================= //
@@ -84,9 +107,11 @@ var ocorrencia4 = new OcorrenciaDescarteIrregular(
     DateTime.Now,
     setor,
     "PR-001",
+    new PrioridadePadrao(),
     new EstrategiaTriagemPadrao()
 );
 
+ocorrencia4.Triar(new EstrategiaTriagemPadrao());
 Console.WriteLine($"Situação final: {ocorrencia4.Situacao}");
 Console.WriteLine($"Protocolo relacionado: {ocorrencia4.ProtocoloRelacionado}");
 
@@ -100,8 +125,11 @@ var ocorrencia5 = new OcorrenciaViaDanificada(
     DateTime.Now,
     setor,
     null,
+    new PrioridadePadrao(),
     new EstrategiaTriagemPadrao()
 );
+
+ocorrencia5.Triar(new EstrategiaTriagemPadrao());
 
 try
 {
@@ -128,9 +156,11 @@ var ocorrencia6 = new OcorrenciaAlagamento(
     DateTime.Now,
     setor,
     null,
+    new PrioridadePadrao(),
     new EstrategiaTriagemEmergencial()
 );
 
+ocorrencia6.Triar(new EstrategiaTriagemEmergencial());
 Console.WriteLine($"Estratégia EMERGENCIAL: {ocorrencia6.Situacao}");
 
 var ocorrencia7 = new OcorrenciaAlagamento(
@@ -140,9 +170,11 @@ var ocorrencia7 = new OcorrenciaAlagamento(
     DateTime.Now,
     setor,
     null,
-    new EstrategiaTriagemRigida()
+    new PrioridadePadrao(),
+    new EstrategiaTriagemRigorosa()
 );
 
+ocorrencia7.Triar(new EstrategiaTriagemRigorosa());
 Console.WriteLine($"Estratégia RÍGIDA: {ocorrencia7.Situacao}");
 
 
