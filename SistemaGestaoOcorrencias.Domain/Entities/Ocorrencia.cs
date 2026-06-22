@@ -48,12 +48,10 @@ public abstract class Ocorrencia
         Triar(estrategiaTriagem);
     }
 
-    public void AdicionarMovimentacao(Movimentacao movimentacao)
+    private void RegistrarMovimentacao(TipoMovimentacao tipo, Situacao situacaoAnterior,
+                                       Situacao situacaoNova, string? descricao = null)
     {
-        if (_historicoMovimentacoes.Contains(movimentacao))
-        {
-            throw new InvalidOperationException("Esta movimentação já foi adicionada.");
-        }
+        var movimentacao = new Movimentacao(tipo, situacaoAnterior, situacaoNova, DateTime.Now, descricao);
 
         _historicoMovimentacoes.Add(movimentacao);
     }
@@ -79,9 +77,11 @@ public abstract class Ocorrencia
 
         if (vistoria.Aprovada)
             Situacao = Situacao.EncaminhadaParaExecucao;
-        
 
+        var anterior = Situacao;       
         Vistoria = vistoria;
+
+        registrarMovimentacao(TipoMovimentacao.Vistoria, anterior, Situacao);
     }
 
     public void Executar()
@@ -98,19 +98,23 @@ public abstract class Ocorrencia
             throw new InvalidOperationException("A ocorrência precisa estar encaminhada para execução.");
 
         Situacao = Situacao.EmExecucao;
+
+        RegistrarMovimentacao(TipoMovimentacao.Execucao, anterior, Situacao);
     }
 
     public bool Encerrar(IValidadorEncerramento validadorEncerramento, string justificativa)
     {
-
         Justificativa = ValidarTexto.ValidarTexto(justificativa, "Justificativa de encerramento é obrigatória.");
 
         if (!validadorEncerramento.Validar(this))
         {
             return false;
         }
-
+        var anterior = Situacao;
         this.Situacao = Situacao.Encerrada;
+        
+        RegistrarMovimentacao(TipoMovimentacao.Encerramento, anterior, Situacao, justificativa);
+
         return true;
     }
 
@@ -119,29 +123,34 @@ public abstract class Ocorrencia
         if (Situacao != Situacao.AguardandoTriagem)
             throw new InvalidOperationException("A ocorrência já foi triada.");
 
+        var anterior = Situacao;
         var resultado = estrategia.Executar(this);
 
-        AplicarResultadoTriagem(resultado);
+        AplicarResultadoTriagem(resultado, anterior);
     }
 
-    private void AplicarResultadoTriagem(ResultadoTriagem resultado)
+    private void AplicarResultadoTriagem(ResultadoTriagem resultado, Situacao anterior)
     {
         switch (resultado)
         {
             case ResultadoTriagem.Aceita:
                 Situacao = Situacao.EncaminhadaParaExecucao;
+                RegistrarMovimentacao(TipoMovimentacao.Triagem, anterior, Situacao);
                 break;
 
             case ResultadoTriagem.Vistoria:
                 Situacao = Situacao.EncaminhadaParaVistoria;
+                RegistrarMovimentacao(TipoMovimentacao.Triagem, anterior, Situacao);
                 break;
 
             case ResultadoTriagem.Recusada:
                 Situacao = Situacao.Recusada;
+                RegistrarMovimentacao(TipoMovimentacao.Triagem, anterior, Situacao);
                 break;
 
             case ResultadoTriagem.Duplicada:
                 Situacao = Situacao.Duplicada;
+                RegistrarMovimentacao(TipoMovimentacao.Triagem, anterior, Situacao);
                 break;
 
             default:
