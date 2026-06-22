@@ -1,4 +1,5 @@
 using SistemaGestaoOcorrencias.Domain.Entities;
+using SistemaGestaoOcorrencias.Domain.Interfaces;
 using System.Text;
 
 namespace SistemaGestaoOcorrencias.Application.EstrategiasGeracaoResumos;

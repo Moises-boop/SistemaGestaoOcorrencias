@@ -1,4 +1,5 @@
 using SistemaGestaoOcorrencias.Domain.Entities;
+using SistemaGestaoOcorrencias.Domain.Interfaces;
 using SistemaGestaoOcorrencias.Domain.Utils.Enums;
 
 namespace SistemaGestaoOcorrencias.Application.EstrategiasPrioridade;
@@ -9,7 +10,7 @@ public class PrioridadePadrao : ICalcularPrioridade
     {
         if (ocorrencia.ExigeVistoria && ocorrencia.Vistoria == null)
             return NivelPrioridadeEnum.Urgente;
-            
+
         if (ocorrencia.ExigeVistoria)
             return NivelPrioridadeEnum.Alta;
 

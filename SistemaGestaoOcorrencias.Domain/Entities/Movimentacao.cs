@@ -16,10 +16,12 @@ public class Movimentacao
                          DateTime data, 
                          string? descricao)
     {
-        Tipo = ValidarObjeto<TipoMovimentacao>(tipo, "Esse tipo de movimentação não é permitido.");
-        SituacaoAnterior = ValidarObjeto<Situacao>(situacaoAnterior, "A situação anterior não é válida.");
-        SituacaoPosterior = ValidarObjeto<Situacao>(situacaoPosterior, "A situação posterior não é válida.");
-        Data = ValidarData(data, DateTime.Now, DateTime.Now, "A data não é válida.");
-        Descricao = ValidarTexto(descricao, "A descrição é obrigatória.");
+        Tipo = tipo;
+        SituacaoAnterior = situacaoAnterior;
+        SituacaoPosterior = situacaoPosterior;
+        Data = ValidarData.Validar(data, DateTime.MinValue, DateTime.Now, "A data não é válida.");
+        Descricao = string.IsNullOrWhiteSpace(descricao)
+            ? null
+            : ValidarTexto.Validar(descricao, "A descrição é obrigatória.");
     }
 }   

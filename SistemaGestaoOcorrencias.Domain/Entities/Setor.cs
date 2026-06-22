@@ -1,3 +1,5 @@
+using SistemaGestaoOcorrencias.Domain.Utils.Validations;
+
 namespace SistemaGestaoOcorrencias.Domain.Entities;
 
 public class Setor
@@ -8,8 +10,8 @@ public class Setor
 
     public Setor(string idSetor, string nome, string descricao)
     {
-        IdSetor = Validacao.ValidarTexto(idSetor, "ID do setor é obrigatório.");
-        Nome = Validacao.ValidarTexto(nome, "Nome do setor é obrigatório.");
-        Descricao = Validacao.ValidarTexto(descricao, "Descrição do setor é obrigatória.");
+        IdSetor = ValidarTexto.Validar(idSetor, "ID do setor é obrigatório.");
+        Nome = ValidarTexto.Validar(nome, "Nome do setor é obrigatório.");
+        Descricao = ValidarTexto.Validar(descricao, "Descrição do setor é obrigatória.");
     }
 }

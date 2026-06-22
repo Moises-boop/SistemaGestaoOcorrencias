@@ -24,6 +24,7 @@ public class OcorrenciaAlagamento : Ocorrencia
             estrategiaPrioridade,
             estrategiaTriagem)
     {
-        ExigeVistoria = true;
     }
+
+    protected override bool DeterminarExigeVistoria() => true;
 }
