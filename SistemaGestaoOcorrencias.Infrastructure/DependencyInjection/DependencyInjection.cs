@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SistemaGestaoOcorrencias.Infrastructure.Persistence;
 using SistemaGestaoOcorrencias.Infrastructure.Repositories;
+using SistemaGestaoOcorrencias.Domain.Repositories;
 
 namespace SistemaGestaoOcorrencias.Infrastructure.DependencyInjection
 {
