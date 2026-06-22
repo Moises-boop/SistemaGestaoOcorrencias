@@ -14,7 +14,7 @@ public abstract class Ocorrencia
     public DateTime DataAbertura { get; }
     public NivelPrioridadeEnum NivelPrioridade { get; protected set; }
     public Situacao Situacao { get; protected set; }
-    public bool ExigeVistoria { get; }
+    public bool ExigeVistoria { get; protected set; }
     public Vistoria? Vistoria { get; protected set; }
     public string? Justificativa { get; protected set; }
     public Setor SetorResponsavel { get; protected set; }
