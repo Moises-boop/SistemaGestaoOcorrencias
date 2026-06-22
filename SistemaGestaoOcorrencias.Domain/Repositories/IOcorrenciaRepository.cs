@@ -1,4 +1,4 @@
-namespace SistemaGestaoOcorrencias.Domain.MemoryInterfaces
+namespace SistemaGestaoOcorrencias.Domain.Repositories
 {
     public interface IOcorrenciaRepository
     {
