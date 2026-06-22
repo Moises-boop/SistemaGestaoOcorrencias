@@ -1,20 +1,20 @@
 using SistemaGestaoOcorrencias.Infrastructure.Persistence;
-using SistemaGestaoOcorrencias.Domain.MemoryInterfaces;
+using SistemaGestaoOcorrencias.Domain.Repositories;
 
 namespace SistemaGestaoOcorrencias.Infrastructure.Repositories
 {
-    public class MemoryContext : IOcorrenciaRepository
+    public class OcorrenciaMemoryRepository : IOcorrenciaRepository
     {
         private readonly MemoryContext _context;
 
-        public MemoryContext(MemoryContext context)
+        public OcorrenciaMemoryRepository(MemoryContext context)
         {
             _context = context;
         }
 
         public void Adicionar(Ocorrencia ocorrencia)
         {
-            _context.Adicionar(ocorrencia);
+            _context.Ocorrencias.Add(ocorrencia);
         }
 
         public List<Ocorrencia> ObterTodos()
