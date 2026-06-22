@@ -14,6 +14,8 @@ public abstract class Ocorrencia
     public DateTime DataAbertura { get; }
     public NivelPrioridadeEnum NivelPrioridade { get; protected set; }
     public Situacao Situacao { get; protected set; }
+    public bool ExigeVistoria { get; }
+    public Vistoria? Vistoria { get; protected set; }
     public string? Justificativa { get; protected set; }
     public Setor SetorResponsavel { get; protected set; }
     public string? ProtocoloRelacionado { get; }
@@ -24,7 +26,7 @@ public abstract class Ocorrencia
     public IReadOnlyCollection<Movimentacao> HistoricoMovimentacoes => _historicoMovimentacoes.AsReadOnly();
     public IReadOnlyCollection<Impedimento> Impedimentos => _impedimentos.AsReadOnly();
 
-    public Ocorrencia(
+    protected Ocorrencia(
         string descricao, 
         string protocolo, 
         Bairro bairro, 
@@ -34,12 +36,13 @@ public abstract class Ocorrencia
         ICalcularPrioridade estrategiaPrioridade,
         IEstrategiaTriagem<Ocorrencia> estrategiaTriagem)
     {
-        Descricao = Validacao.ValidarTexto(descricao, "Descrição é obrigatória. ");
-        Protocolo = Validacao.ValidarTexto(protocolo, "Protocolo é obrigatório. ");
+        Descricao = ValidarTexto.ValidarTexto(descricao, "Descrição é obrigatória. ");
+        Protocolo = ValidarTexto.ValidarTexto(protocolo, "Protocolo é obrigatório. ");
         Bairro = ValidarObjeto.ValidarObjeto(bairro, "Bairro é obrigatório. ");
         DataAbertura = ValidarData.ValidarData(dataAbertura, DateTime.Now, DateTime.Now, "Data de abertura é inválida.");
         SetorResponsavel = ValidarObjeto.ValidarObjeto(setorResponsavel, "Setor responsável é obrigatório. ");
         ProtocoloRelacionado = protocoloRelacionado;
+        Situacao = Situacao.AguardandoTriagem;
 
         CalcularPrioridade(estrategiaPrioridade);
         Triar(estrategiaTriagem);
@@ -57,6 +60,8 @@ public abstract class Ocorrencia
 
     public void RegistrarImpedimento(Impedimento impedimento)
     {
+        VerificarSeEncerrada();
+
         if (_impedimentos.Contains(impedimento))
         {
             throw new InvalidOperationException("Este impedimento já foi registrado.");
@@ -65,9 +70,38 @@ public abstract class Ocorrencia
         _impedimentos.Add(impedimento);
     }
 
+    public void RegistrarVistoria(Vistoria vistoria)
+    {
+        VerificarSeEncerrada();
+
+        if (Situacao != Situacao.EncaminhadaParaVistoria)
+            throw new InvalidOperationException("A ocorrência precisa estar encaminhada para vistoria.");
+
+        Vistoria = vistoria;
+        Situacao = Situacao.EncaminhadaParaExecucao;
+    }
+
+    public void Executar()
+    {
+        VerificarSeEncerrada();
+
+        if (ExigeVistoria && Vistoria == null)
+            throw new InvalidOperationException("A vistoria ainda está pendente.");
+
+        if (_impedimentos.Any(i => !i.Resolvido))
+            throw new InvalidOperationException("Existem impedimentos pendentes.");
+        
+        if (Situacao != Situacao.EncaminhadaParaExecucao)
+            throw new InvalidOperationException("A ocorrência precisa estar encaminhada para execução.");
+
+        Situacao = Situacao.EmExecucao;
+    }
+
     public bool Encerrar(IValidadorEncerramento validadorEncerramento, string justificativa)
     {
-        Justificativa = Validacao.ValidarTexto(justificativa, "Justificativa de encerramento é obrigatória.");
+        VerificarSeEncerrada();
+
+        Justificativa = ValidarTexto.ValidarTexto(justificativa, "Justificativa de encerramento é obrigatória.");
 
         if (!validadorEncerramento.Validar(this))
         {
@@ -78,9 +112,45 @@ public abstract class Ocorrencia
         return true;
     }
 
-    public void Triar(IEstrategiaTriagem<Ocorrencia> estrategiaTriagem)
+    public void Triar(IEstrategiaTriagem estrategia)
     {
-        this.Situacao = estrategiaTriagem.Triar(this);
+        if (Situacao != Situacao.AguardandoTriagem)
+            throw new InvalidOperationException("A ocorrência já foi triada.");
+
+        var resultado = estrategia.Executar(this);
+
+        AplicarResultadoTriagem(resultado);
+    }
+
+    private void AplicarResultadoTriagem(ResultadoTriagem resultado)
+    {
+        switch (resultado)
+        {
+            case ResultadoTriagem.Aceita:
+                Situacao = Situacao.EncaminhadaParaExecucao;
+                break;
+
+            case ResultadoTriagem.Vistoria:
+                Situacao = Situacao.EncaminhadaParaVistoria;
+                break;
+
+            case ResultadoTriagem.Recusada:
+                Situacao = Situacao.Recusada;
+                break;
+
+            case ResultadoTriagem.Duplicada:
+                Situacao = Situacao.Duplicada;
+                break;
+
+            default:
+                throw new InvalidOperationException("Resultado de triagem inválido.");
+        }
+    }
+
+    private void VerificarSeEncerrada()
+    {
+        if (Situacao == Situacao.Encerrada)
+            throw new InvalidOperationException("Uma ocorrência encerrada não pode ser alterada.");
     }
 
     public void CalcularPrioridade(ICalcularPrioridade calcularPrioridade)
