@@ -1,3 +1,5 @@
+using SistemaGestaoOcorrencias.Domain.Entities;
+
 namespace SistemaGestaoOcorrencias.Domain.Interfaces
 {
     public interface IValidadorEncerramento

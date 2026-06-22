@@ -102,7 +102,6 @@ public abstract class Ocorrencia
 
     public bool Encerrar(IValidadorEncerramento validadorEncerramento, string justificativa)
     {
-        VerificarSeEncerrada();
 
         Justificativa = ValidarTexto.ValidarTexto(justificativa, "Justificativa de encerramento é obrigatória.");
 
